@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Pro PWA</title>
+<link rel="manifest" href="manifest.json">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="icon" href="icon.png">
+<style>
+body { font-family: 'Tahoma', sans-serif; margin:0; padding:0; background:#0a0f20; color:white; display:flex; justify-content:center; align-items:center; height:100vh; }
+.container { width:95%; max-width:450px; background:#111827; border-radius:15px; padding:20px; box-shadow:0 5px 20px rgba(0,0,0,0.5); }
+h2 { text-align:center; margin-bottom:20px; color:#4f8ef7; }
+input, select, button { width:100%; padding:12px; margin:8px 0; border-radius:8px; border:none; font-size:16px; }
+input, select { background:#1e293b; color:white; }
+button { background:#4f8ef7; color:white; cursor:pointer; transition:0.2s; }
+button:hover { background:#6aa0f7; transform:scale(1.03); }
+#result { margin-top:20px; font-size:16px; font-weight:bold; }
+canvas { margin-top:20px; border-radius:10px; background:#1e293b; }
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Production Pro Calculator</h2>
+<label>Seconds per shot</label>
+<input type="number" id="secPerShot" placeholder="e.g., 12">
+<label>Units per shot (ضرب)</label>
+<input type="number" id="unitsPerShot" value="1">
+<label>Units per package (optional)</label>
+<input type="number" id="packageSize" placeholder="e.g., 90">
+<label>Enter time</label>
+<input type="number" id="totalTime" placeholder="e.g., 60">
+<label>Time unit</label>
+<select id="timeUnit">
+<option value="minutes">Minutes</option>
+<option value="hours">Hours</option>
+</select>
+<button onclick="calculate()">Calculate</button>
+<div id="result"></div>
+<canvas id="chart" height="200"></canvas>
+</div>
+<script>
+let chart;
+function calculate(){
+  const sec = parseFloat(document.getElementById('secPerShot').value);
